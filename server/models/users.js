@@ -13,6 +13,11 @@ const userSchema = mongoose.Schema({
     required:true,
     maxlength:100
   },
+  name:{
+    type:String,
+    required: true,
+    maxlength:100
+  },
   lastname:{
     type:String,
     required: true,
@@ -31,7 +36,6 @@ const userSchema = mongoose.Schema({
     default:0
   },
   token:String
- }
 })
 
 const User = mongoose.model('User',userSchema);
