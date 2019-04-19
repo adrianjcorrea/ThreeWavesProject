@@ -14,10 +14,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //Models
-const { User } = require('./models/users');
+const { User } = require('./models/Users');
 
 //Middlewares
-const { auth } = require('./middleware/auth');
+const { auth } = require('./middleware/Auth');
 //===========================================
 //                  USERS                  ==
 //===========================================
@@ -29,7 +29,7 @@ app.get('/api/users/auth',auth ,(req, res) => {
          name: req.user.name,
          lastname: req.user.lastname,
          role: req.user.role,
-         cart: req.user.cart
+         cart: req.user.cart,
          history: req.user.history
      })
 })
