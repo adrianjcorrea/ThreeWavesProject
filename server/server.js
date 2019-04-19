@@ -18,6 +18,24 @@ const { User } = require('./models/Users');
 
 //Middlewares
 const { auth } = require('./middleware/Auth');
+const { Brand } = require('./models/Brand');
+
+//===========================================
+//                  MODELS                  ==
+//===========================================
+
+app.post('/api/products/brand', auth,(req, res) => {
+    const brand = new Brand(req.body);
+
+    brand.save((err, doc) =>{
+        if(err) return res.json({success: false, err});
+        res.status(200).json({
+            success:true,
+            brand:doc
+        })
+    })
+})
+
 //===========================================
 //                  USERS                  ==
 //===========================================
