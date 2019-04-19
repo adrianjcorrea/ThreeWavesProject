@@ -15,16 +15,17 @@ app.use(cookieParser());
 
 //Models
 const { User } = require('./models/Users');
+const { Brand } = require('./models/Brand');
 
 //Middlewares
 const { auth } = require('./middleware/Auth');
-const { Brand } = require('./models/Brand');
+const { admin } = require('./middleware/Admin');
 
 //===========================================
 //                  MODELS                  ==
 //===========================================
 
-app.post('/api/products/brand', auth,(req, res) => {
+app.post('/api/products/brand', auth, admin,(req, res) => {
     const brand = new Brand(req.body);
 
     brand.save((err, doc) =>{
