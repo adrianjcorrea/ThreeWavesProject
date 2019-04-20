@@ -16,13 +16,22 @@ app.use(cookieParser());
 //Models
 const { User } = require('./models/Users');
 const { Brand } = require('./models/Brand');
+const { Wood } = require('./models/woods');
 
 //Middlewares
 const { auth } = require('./middleware/Auth');
 const { admin } = require('./middleware/Admin');
 
 //===========================================
-//                  MODELS                  ==
+//                  WOODS                  ==
+//===========================================
+app.post('', auth, admin, (req, res) => {
+
+})
+
+
+//===========================================
+//                  BRANDS                 ==
 //===========================================
 
 app.post('/api/products/brand', auth, admin,(req, res) => {
@@ -37,6 +46,12 @@ app.post('/api/products/brand', auth, admin,(req, res) => {
     })
 })
 
+app.get('/api/products/getBrands', (req, res) => {
+  Brand.find({},(err,brands)=>{
+    if(err) return res.status(400).send(err);
+    res.status(200).send(brands);
+  })
+})
 //===========================================
 //                  USERS                  ==
 //===========================================
