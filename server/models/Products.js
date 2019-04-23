@@ -7,7 +7,7 @@ const productSchema = mongoose.Schema({
     type: String,
     unique: 1,
     maxlength:100
-  }
+  },
   description:{
     required: true,
     type: String,
@@ -15,14 +15,14 @@ const productSchema = mongoose.Schema({
   },
   price:{
     required: true,
-    type: String,
+    type: Number,
     maxlength:255
   },
   brand:{
     type: Schema.Types.ObjectId,
     ref:'Brand',
     required: true
-  }.
+  },
   shipping:{
     required:true,
     type: Boolean,
@@ -42,8 +42,9 @@ const productSchema = mongoose.Schema({
     type: Number
   },
   sold:{
-    required: true,
-    maxlength: 100
+    type: Number,
+    maxLength: 100,
+    default: 0
   },
   publish:{
     required: true,
@@ -55,8 +56,8 @@ const productSchema = mongoose.Schema({
   }
 
 
-},{timestamps:true});
+},{ timestamps:true });
 
-const Product = mongoose.model('Product',productSchema);
+const Product = mongoose.model('Product', productSchema);
 
-module.exports = { Product }
+module.exports = { Product };
