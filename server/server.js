@@ -16,7 +16,7 @@ app.use(cookieParser());
 //Models
 const { User } = require('./models/Users');
 const { Brand } = require('./models/Brand');
-const { Wood } = require('./models/woods');
+const { Wood } = require('./models/Woods');
 
 //Middlewares
 const { auth } = require('./middleware/Auth');
