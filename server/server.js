@@ -24,18 +24,23 @@ const { auth } = require('./middleware/Auth');
 const { admin } = require('./middleware/Admin');
 
 //=================================
-//             PRODUCTS
+//==          PRODUCTS           ==
 //=================================
 
 // BY ARRIVAL
-//articles?sortBy=createdAt&order=desc&limit=4
+//EXAMPLE:articles?sortBy=createdAt&order=desc&limit=4
 
 // BY SELL
-//articles?sortBy=sold&order=desc&limit=100&skip=5
+// EXAMPLE:articles?sortBy=sold&order=desc&limit=100&skip=5
 app.get('/api/product/articles', (req, res) => {
+  //Creating to get item on described in search bar.
   let order = req.query.order ? req.query.order : 'asc';
+  //Sort by given item else by id.
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  //Get defined number of content else get 100
   let limit = req.query.limit ? parseInt(req.query.limit) : 100;  
+  
+  //Defining response from get request.
   Product.
   find().
   populate('brand').
@@ -52,26 +57,29 @@ app.get('/api/product/articles', (req, res) => {
 //api/product/article?id=HSHSHSKSK,JSJSJSJS,SDSDHHSHDS,JSJJSDJ&type=single
 app.get('/api/product/articles_by_id', (req, res) => {
   let type = req.query.type;
-  let items = req.query.id;  
+  let items = req.query.id; 
+
   if(type === "array") {
     let ids = req.query.id.split(',');
     items = [];
     items = ids.map(item => {
-        return mongoose.Types.ObjectId(item)
+      return mongoose.Types.ObjectId(item)
     });
-  }  
+  } 
+
   Product.
   find({ '_id':{ $in:items }}).
   populate('brand').
   populate('wood').
   exec((err,docs) => {
-      return res.status(200).send(docs)
+    return res.status(200).send(docs);
   });
 });
 
 
 app.post('/api/product/article', auth, admin, (req, res)=>{
   const product = new Product(req.body);  
+  
   product.save((err, doc) => {
     if(err) return res.json({ success:false, err });
     res.status(200).json({
@@ -82,11 +90,12 @@ app.post('/api/product/article', auth, admin, (req, res)=>{
 });
 
 //=================================
-//              WOODS
+//==           WOODS             ==
 //=================================
 
 app.post('/api/product/wood', auth, admin, (req, res) => {
   const wood = new Wood(req.body);  
+  
   wood.save((err,doc)=>{
     if(err) return res.json({ success:false,err });
     res.status(200).json({
@@ -104,11 +113,12 @@ app.get('/api/product/woods', (req, res) => {
 });
 
 //===========================================
-//                  BRANDS                 ==
+//==               BRANDS                  ==
 //===========================================
 
 app.post('/api/products/brand', auth, admin, (req, res) => {
   const brand = new Brand(req.body);  
+  
   brand.save((err, doc) => {
     if(err) return res.json({ success: false, err });
     res.status(200).json({
@@ -125,7 +135,7 @@ app.get('/api/products/getBrands', (req, res) => {
   });
 });
 //===========================================
-//                  USERS                  ==
+//==               USERS                   ==
 //===========================================
 app.get('/api/users/auth', auth, (req, res) => {
   res.status(200).json({
