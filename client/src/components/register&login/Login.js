@@ -54,7 +54,7 @@ class Login extends Component {
           <FormField
             id={ 'email' }
             formdata={ this.state.formData.email }
-            change={(event) => this.updateForm(this.state.password.element)}
+            change={(element) => this.updateForm(element)}
           />
         </form>
       </div>
