@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormField from '../utilities/FormField.js';
+import {update} from '../utilities/ActionsField.js';
 
 import { connect } from 'react-redux';
 
@@ -19,7 +20,6 @@ class Login extends Component {
         },
         validation: {
           required: true,
-          email: true
         },
         valid: false,
         touched: false,
@@ -39,9 +39,18 @@ class Login extends Component {
         valid: false,
         touched: false,
         validationMessage:''
+      }
     }
   }
-}
+
+  updateForm = (element) => {
+    const newFormdata = update(element, this.state.formData, 'login');
+    this.setState({
+      formError: false,
+      formData: newFormdata
+    })
+  }
+
 
   formOnSubmit = () => {
     return alert('hello');
@@ -54,6 +63,11 @@ class Login extends Component {
           <FormField
             id={ 'email' }
             formdata={ this.state.formData.email }
+            change={(element) => this.updateForm(element)}
+          />
+          <FormField
+            id={ 'password' }
+            formdata={ this.state.formData.password }
             change={(element) => this.updateForm(element)}
           />
         </form>
