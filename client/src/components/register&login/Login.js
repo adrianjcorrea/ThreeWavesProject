@@ -53,7 +53,8 @@ class Login extends Component {
 
 
   formOnSubmit = () => {
-    return alert('hello');
+    let dataToSubmit = generalData(this.state.formData, 'login');
+    console.log(dataToSubmit);
   }
 
   render() {
@@ -70,6 +71,13 @@ class Login extends Component {
             formdata={ this.state.formData.password }
             change={(element) => this.updateForm(element)}
           />
+          { this.state.formError ?
+            <div className="error_label">
+              Please check your data
+            </div>
+            :null
+          }
+          <button onClick={(event) => this.formOnSubmit(event)}>Hello</button>
         </form>
       </div>
     )
